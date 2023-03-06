@@ -30,6 +30,10 @@ var globalFlags = []cli.Flag{
 		Value: mustGetMcConfigDir(),
 		Usage: "path to configuration folder",
 	},
+	cli.StringFlag{
+		Name:  "id",
+		Usage: "id",
+	},
 	cli.BoolFlag{
 		Name:  "quiet, q",
 		Usage: "disable progress bar display",

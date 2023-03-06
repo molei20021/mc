@@ -21,6 +21,7 @@ package cmd
 import (
 	"context"
 	"crypto/x509"
+	"fmt"
 	"net/url"
 	"time"
 
@@ -75,6 +76,7 @@ var (
 
 	globalLimitUpload   uint64
 	globalLimitDownload uint64
+	globalID            string
 
 	globalContext, globalCancel = context.WithCancel(context.Background())
 )
@@ -134,6 +136,13 @@ func setGlobalsFromContext(ctx *cli.Context) error {
 			return e
 		}
 	}
+
+	globalID = ctx.String("id")
+	if globalID == "" {
+		globalID = ctx.GlobalString("id")
+	}
+
+	fmt.Println("################7 globalID:", globalID)
 
 	limitDownloadStr := ctx.String("limit-download")
 	if limitDownloadStr == "" {

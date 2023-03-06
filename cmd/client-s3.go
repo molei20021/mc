@@ -232,7 +232,12 @@ func newFactory() func(config *Config) (Client, *probe.Error) {
 				Region:       os.Getenv("MC_REGION"),
 				BucketLookup: config.Lookup,
 				Transport:    transport,
+				Headers: map[string]string{
+					"id": globalID,
+				},
 			}
+
+			fmt.Printf("################ 6 options:%+v\n", options)
 
 			api, e = minio.New(hostName, &options)
 			if e != nil {

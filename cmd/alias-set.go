@@ -201,6 +201,7 @@ func probeS3Signature(ctx context.Context, accessKey, secretKey, url string, pee
 		s3Config.Signature = stype
 		s3Client, err := S3New(s3Config)
 		if err != nil {
+			fmt.Println("################3")
 			return "", err
 		}
 
@@ -217,6 +218,7 @@ func probeS3Signature(ctx context.Context, accessKey, secretKey, url string, pee
 				return stype, nil
 			}
 
+			fmt.Println("################4")
 			// For any other errors we fail.
 			return "", err.Trace(s3Config.Signature)
 		}
@@ -226,6 +228,7 @@ func probeS3Signature(ctx context.Context, accessKey, secretKey, url string, pee
 	stype, err := probeSignatureType("s3v4")
 	if err != nil {
 		if stype, err = probeSignatureType("s3v2"); err != nil {
+			fmt.Println("################5")
 			return "", err.Trace("s3v4", "s3v2")
 		}
 		return stype, nil
@@ -336,10 +339,12 @@ func mainAliasSet(cli *cli.Context, deprecated bool) error {
 
 	if !globalInsecure && !globalJSON && term.IsTerminal(int(os.Stdout.Fd())) {
 		peerCert, err = promptTrustSelfSignedCert(ctx, url, alias)
+		fmt.Println("##################1 err:", err)
 		fatalIf(err.Trace(cli.Args()...), "Unable to initialize new alias from the provided credentials.")
 	}
 
 	s3Config, err := BuildS3Config(ctx, url, alias, accessKey, secretKey, api, path, peerCert)
+	fmt.Println("##################2 err:", err)
 	fatalIf(err.Trace(cli.Args()...), "Unable to initialize new alias from the provided credentials.")
 
 	msg := setAlias(alias, aliasConfigV10{
