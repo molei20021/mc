@@ -21,7 +21,6 @@ package cmd
 import (
 	"context"
 	"crypto/x509"
-	"fmt"
 	"net/url"
 	"time"
 
@@ -141,8 +140,6 @@ func setGlobalsFromContext(ctx *cli.Context) error {
 	if globalID == "" {
 		globalID = ctx.GlobalString("id")
 	}
-
-	fmt.Println("################7 globalID:", globalID)
 
 	limitDownloadStr := ctx.String("limit-download")
 	if limitDownloadStr == "" {

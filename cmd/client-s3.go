@@ -237,8 +237,6 @@ func newFactory() func(config *Config) (Client, *probe.Error) {
 				},
 			}
 
-			fmt.Printf("################ 6 options:%+v\n", options)
-
 			api, e = minio.New(hostName, &options)
 			if e != nil {
 				return nil, probe.NewError(e)
